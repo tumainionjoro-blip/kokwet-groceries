@@ -169,12 +169,9 @@ on uploaded images in a live environment. Container filesystems can be replaced 
 ## Notes on payments and delivery
 
 - **Cash on Delivery** works out of the box.
-- **M-Pesa** is wired up as a payment *option* end-to-end (order records, statuses), but
-  the actual Safaricom Daraja STK Push call is left as a clearly-marked extension point —
-  add your consumer key, secret, shortcode, and passkey to `backend/.env`, then implement
-  the STK push request inside `backend/src/controllers/orderController.ts` where the
-  order's `paymentMethod` is `"mpesa"`. Keeping this separate means you can go live with
-  Cash on Delivery today and turn on M-Pesa once you have Daraja API credentials.
+- **M-Pesa Daraja STK Push** is implemented. Configure the Daraja credentials and public
+  callback URL as backend environment secrets; use sandbox credentials and a sandbox phone
+  number to test before requesting live Daraja access.
 - Delivery areas and the free-delivery threshold are simple lists/numbers you can edit in
   `frontend/src/pages/CheckoutPage.tsx` (`AREAS`) and `backend/.env`
   (`FREE_DELIVERY_THRESHOLD`, `STANDARD_DELIVERY_FEE`).

@@ -154,3 +154,22 @@ test("search page accepts a query and renders without frontend errors", async ({
   await expect(page.getByRole("main").nth(1)).toBeVisible();
   expect(pageErrors).toEqual([]);
 });
+
+test("checkout explains STK Push and shows the Pochi receiving number", async ({ page }) => {
+  await page.addInitScript((item) => localStorage.setItem("kokwet_cart", JSON.stringify([{ product: item, quantity: 1 }])), product);
+  await page.goto("/checkout");
+  await page.evaluate(() => localStorage.setItem("kokwet_user", JSON.stringify({
+    _id: "customer-1",
+    name: "Test Customer",
+    email: "customer@example.test",
+    phone: "0712345678",
+    role: "customer",
+    addresses: [],
+    token: "test-token",
+  })));
+  await page.reload();
+
+  await expect(page.getByText("M-Pesa · Pochi la Biashara")).toBeVisible();
+  await expect(page.getByText(/STK Push will be sent to your delivery phone.*0793048318/)).toBeVisible();
+  await expect(page.getByText("Confirm the M-Pesa prompt on your phone to complete payment.")).toBeVisible();
+});

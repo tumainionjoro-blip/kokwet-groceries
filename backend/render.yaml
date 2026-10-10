@@ -2,21 +2,16 @@ services:
   - type: web
     name: kokwet-groceries-api
     runtime: node
-    plan: starter
+    plan: free
+    rootDir: backend
     buildCommand: npm ci && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
-    disk:
-      name: uploads
-      mountPath: /var/data/uploads
-      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: UPLOADS_DIR
-        value: /var/data/uploads
       - key: MONGO_URI
         sync: false
       - key: JWT_SECRET

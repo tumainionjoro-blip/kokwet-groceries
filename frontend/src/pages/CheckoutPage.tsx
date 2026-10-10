@@ -10,6 +10,7 @@ import BrandVisual from "../components/ui/BrandVisual";
 
 const FREE_DELIVERY_THRESHOLD = 3000;
 const STANDARD_DELIVERY_FEE = 150;
+const MPESA_RECEIVING_NUMBER = import.meta.env.VITE_MPESA_RECEIVING_NUMBER || "0793048318";
 const AREAS = ["Kitale Town Centre", "Milimani", "Bidii", "Tuwan", "Mitume", "Kipsongo", "Matisi", "Sikhendu"];
 
 export default function CheckoutPage() {
@@ -113,7 +114,10 @@ export default function CheckoutPage() {
             <h2 className="font-bold text-gray-800 mb-2">Payment method</h2>
             <div className="flex items-center gap-3 border border-brand-500 bg-brand-50 rounded-lg p-4">
               <BrandVisual slot="checkoutPayment" fallback="📱" className="h-8 w-8 text-xl" imageClassName="h-full w-full rounded object-cover" />
-              <div><p className="font-semibold text-sm text-gray-800">M-Pesa</p><p className="text-xs text-gray-500">Your order will wait for payment confirmation.</p></div>
+              <div>
+                <p className="font-semibold text-sm text-gray-800">M-Pesa · Pochi la Biashara</p>
+                <p className="text-xs text-gray-500">An STK Push will be sent to your delivery phone. Payment is received by {MPESA_RECEIVING_NUMBER}.</p>
+              </div>
             </div>
           </section>
         </div>
@@ -128,7 +132,7 @@ export default function CheckoutPage() {
           </div>
           {error && <p className="text-sm text-red-600">{error}</p>}
           <Button type="submit" fullWidth size="lg" disabled={submitting}>{submitting ? "Placing order..." : `Place order — ${formatKES(grandTotal)}`}</Button>
-          <p className="text-xs text-gray-400 text-center">Pay by M-Pesa. Payment confirmation is currently recorded by the store team.</p>
+          <p className="text-xs text-gray-400 text-center">Confirm the M-Pesa prompt on your phone to complete payment.</p>
         </div>
       </form>
     </div>
